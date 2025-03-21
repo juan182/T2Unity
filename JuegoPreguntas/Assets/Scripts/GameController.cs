@@ -111,7 +111,7 @@ public class GameControler : MonoBehaviour
         }
     }
 
-
+    #region Mostrar Pregunta
     public void mostrarPreguntasMultiples(PreguntasMultiples pregunta)
     {
         panelCorrecto.SetActive(false);
@@ -133,6 +133,60 @@ public class GameControler : MonoBehaviour
 
     }
 
+    public void mostrarPreguntasFV(PreguntasFV pregunta)
+    {
+        panelPreguntaFV.SetActive(true);
+        panelIncorrectoV.SetActive(false);
+        panelCorrectoF.SetActive(false);
+        panelPrincipal.SetActive(false);
+        panelFin.SetActive(false);
+        panelPreguntaA.SetActive(false);
 
 
+        respuestaFV = pregunta.Respuesta;
+        textVersiculoF.SetText(pregunta.Versiculo);
+        textVersiculoV.SetText(pregunta.Versiculo);
+        textPreguntaFV.SetText(pregunta.Pregunta);
+        textRespuestaCF.SetText(pregunta.Respuesta);
+
+    }
+
+    public void mostrarPreguntasAbiertas(PreguntasAbiertas pregunta)
+    {
+        panelPreguntaFV.SetActive(false);
+        panelPrincipal.SetActive(false);
+        panelFin.SetActive(false);
+        panelRespuestaA.SetActive(false);
+        panelPreguntaA.SetActive(true);
+
+        textPreguntaA.text = pregunta.Pregunta;
+
+        textRespuestaA.SetText(pregunta.Respuesta);
+        textVersiculoA.SetText(pregunta.Versiculo);
+    }
+    #endregion
+    
+    public void mostrarScore()
+    {
+        panelPrincipal.SetActive(false);
+        panelPreguntaFV.SetActive(false);
+        panelPreguntaA.SetActive(false);
+        panelFin.SetActive(true);
+
+        textGanadas.SetText("Respuestas Correctas: " + ganadas.ToString());
+        textPerdidas.SetText("Respuestas Incorrectas: " + perdidas.ToString());
+    }
+
+    public void cerrarQuiz()
+    {
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+        }
+
+    }
 }
