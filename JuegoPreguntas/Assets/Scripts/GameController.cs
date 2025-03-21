@@ -110,6 +110,29 @@ public class GameControler : MonoBehaviour
             mostrarPreguntasAbiertas((PreguntasAbiertas)preguntaActual);
         }
     }
-    
+
+
+    public void mostrarPreguntasMultiples(PreguntasMultiples pregunta)
+    {
+        panelCorrecto.SetActive(false);
+        panelIncorrecto.SetActive(false);
+        panelPrincipal.SetActive(true);
+        panelFin.SetActive(false);
+        panelPreguntaFV.SetActive(false);
+        panelPreguntaA.SetActive(false);
+
+        textPregunta.text = pregunta.Pregunta;
+        textResp1.text = pregunta.Respuesta1;
+        textResp2.text = pregunta.Respuesta2;
+        textResp3.text = pregunta.Respuesta3;
+        textResp4.text = pregunta.Respuesta4;
+        respuestaPM = pregunta.RespuestaCorrecta;
+        textVersC.SetText(pregunta.Versiculo);
+        textVersI.SetText(pregunta.Versiculo);
+        textRespuestaC.SetText("La respuesta correcta es: " + pregunta.RespuestaCorrecta);
+
+    }
+
+
 
 }
