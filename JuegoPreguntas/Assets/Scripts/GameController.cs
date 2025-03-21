@@ -70,6 +70,9 @@ public class GameControler : MonoBehaviour
     void Start()
     {
         PreguntasAleatorias();
+        registro.LecturaPreguntasAbiertas();
+        registro.LecturaPreguntasFV();
+        registro.LecturaPreguntasMultiples();
     }
 
     // Update is called once per frame
