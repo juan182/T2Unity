@@ -22,13 +22,6 @@ public class Registro
     List<PreguntasAbiertas> listaPreguntasAbiertasFacil;
     List<PreguntasAbiertas> listaPreguntasAbiertasDificil;
 
-    void Start()
-    {
-        LecturaPreguntasAbiertas();
-        LecturaPreguntasFV();
-        LecturaPreguntasMultiples();
-    }
-
     public object mostrarOtraPregunta()
     {
 
