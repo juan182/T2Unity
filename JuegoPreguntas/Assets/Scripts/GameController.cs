@@ -192,4 +192,178 @@ public class GameControler : MonoBehaviour
         }
 
     }
+
+    public void botonRespuestaAbierta()
+    {
+
+        panelFin.SetActive(false);
+        panelPrincipal.SetActive(false);
+        panelPreguntaFV.SetActive(false);
+        panelPreguntaA.SetActive(true);
+        panelRespuestaA.SetActive(true);
+    }
+
+    public void comprobarRespuesta1()
+    {
+        if (textResp1.text.Equals(respuestaPM))
+        {
+            Debug.Log("Respuesta Correcta es la 1");
+
+            panelCorrecto.SetActive(true);
+            panelIncorrecto.SetActive(false);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            ganadas += 1;
+
+        }
+        else
+        {
+            Debug.Log("Respuesta Incorrecta es la 1");
+            panelCorrecto.SetActive(false);
+            panelIncorrecto.SetActive(true);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            perdidas += 1;
+        }
+    }
+
+    public void comprobarRespuesta2()
+    {
+        if (textResp2.text.Equals(respuestaPM))
+        {
+            Debug.Log("Respuesta Correcta es la 2");
+            panelCorrecto.SetActive(true);
+            panelIncorrecto.SetActive(false);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            ganadas += 1;
+
+        }
+        else
+        {
+            Debug.Log("Respuesta Incorrecta es la 2");
+            panelCorrecto.SetActive(false);
+            panelIncorrecto.SetActive(true);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            perdidas += 1;
+
+        }
+    }
+
+    public void comprobarRespuesta3()
+    {
+        if (textResp3.text.Equals(respuestaPM))
+        {
+            Debug.Log("Respuesta Correcta es la 3");
+            panelCorrecto.SetActive(true);
+            panelIncorrecto.SetActive(false);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            ganadas += 1;
+
+        }
+        else
+        {
+            Debug.Log("Respuesta Incorrecta es la 3");
+            panelCorrecto.SetActive(false);
+            panelIncorrecto.SetActive(true);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            perdidas += 1;
+
+        }
+    }
+
+    public void comprobarRespuesta4()
+    {
+        if (textResp4.text.Equals(respuestaPM))
+        {
+            Debug.Log("Respuesta Correcta es la 4");
+            panelCorrecto.SetActive(true);
+            panelIncorrecto.SetActive(false);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            ganadas += 1;
+
+        }
+        else
+        {
+            Debug.Log("Respuesta Incorrecta es la 4");
+            panelCorrecto.SetActive(false);
+            panelIncorrecto.SetActive(true);
+            panelPrincipal.SetActive(true);
+            panelFin.SetActive(false);
+
+            perdidas += 1;
+
+        }
+    }
+
+    public void comprobarRespuestaFalso()
+    {
+        if (textRespuestaF.text.Equals(respuestaFV))
+        {
+            panelPreguntaFV.SetActive(true);
+            panelIncorrectoV.SetActive(false);
+            panelCorrectoF.SetActive(true);
+            panelPrincipal.SetActive(false);
+            panelFin.SetActive(false);
+
+            Debug.Log("Respuesta Correcta es Falso");
+
+            ganadas += 1;
+
+        }
+        else
+        {
+            panelPreguntaFV.SetActive(true);
+            panelIncorrectoV.SetActive(true);
+            panelCorrectoF.SetActive(false);
+            panelPrincipal.SetActive(false);
+            panelFin.SetActive(false);
+
+            Debug.Log("Respuesta incorrecta");
+
+            perdidas += 1;
+
+        }
+    }
+
+    public void comprobarRespuestaVerdadero()
+    {
+        if (textRespuestaV.text.Equals(respuestaFV))
+        {
+            Debug.Log("Respuesta correcta es Verdadero");
+
+            panelPreguntaFV.SetActive(true);
+            panelIncorrectoV.SetActive(false);
+            panelCorrectoF.SetActive(true);
+            panelPrincipal.SetActive(false);
+            panelFin.SetActive(false);
+
+            ganadas += 1;
+
+        }
+        else
+        {
+            Debug.Log("Respuesta incorrecta");
+
+            panelPreguntaFV.SetActive(true);
+            panelIncorrectoV.SetActive(true);
+            panelCorrectoF.SetActive(false);
+            panelPrincipal.SetActive(false);
+            panelFin.SetActive(false);
+
+            perdidas += 1;
+
+        }
+    }
 }
