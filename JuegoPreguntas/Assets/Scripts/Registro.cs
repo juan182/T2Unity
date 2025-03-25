@@ -6,38 +6,49 @@ using TMPro;
 using System.IO;
 using System;
 
-public class Registro 
+public static class Registro 
 {
 
 
     //Listas
-    string lineaLeida = "";
-    List<PreguntasMultiples> listaPreguntasMultiples;
-    List<PreguntasMultiples> listaPreguntasMultiplesFacil;
-    List<PreguntasMultiples> listaPreguntasMultiplesDificil;
-    List<PreguntasFV> listaPreguntasFV;
-    List<PreguntasFV> listaPreguntasFVFacil;
-    List<PreguntasFV> listaPreguntasFVDificil;
-    List<PreguntasAbiertas> listaPreguntasAbierta;
-    List<PreguntasAbiertas> listaPreguntasAbiertasFacil;
-    List<PreguntasAbiertas> listaPreguntasAbiertasDificil;
+    static string lineaLeida = "";
+    static List<PreguntasMultiples> listaPreguntasMultiples;
+    static List<PreguntasMultiples> listaPreguntasMultiplesFacil;
+    static List<PreguntasMultiples> listaPreguntasMultiplesDificil;
+    static List<PreguntasFV> listaPreguntasFV;
+    static List<PreguntasFV> listaPreguntasFVFacil;
+    static List<PreguntasFV> listaPreguntasFVDificil;
+    static List<PreguntasAbiertas> listaPreguntasAbierta;
+    static List<PreguntasAbiertas> listaPreguntasAbiertasFacil;
+    static List<PreguntasAbiertas> listaPreguntasAbiertasDificil;
 
-    public object mostrarOtraPregunta()
+    static List<System.Object> preguntasDisponibles = new List<System.Object>();
+
+    public static void Inicializar()
     {
-
-
-        List<System.Object> preguntasDisponibles = new List<System.Object>();
-        
-
+        preguntasDisponibles.Clear();
         preguntasDisponibles.AddRange(listaPreguntasAbiertasFacil);
         preguntasDisponibles.AddRange(listaPreguntasFVFacil);
         preguntasDisponibles.AddRange(listaPreguntasMultiplesFacil);
+
+
+    }
+
+
+    public static object mostrarOtraPregunta()
+    {
 
         if (preguntasDisponibles.Count == 0)
         {
             preguntasDisponibles.AddRange(listaPreguntasAbiertasDificil);
             preguntasDisponibles.AddRange(listaPreguntasMultiplesDificil);
             preguntasDisponibles.AddRange(listaPreguntasFVDificil);
+        }
+
+        if (preguntasDisponibles.Count == 0)
+        {
+            Debug.Log("No hay más preguntas disponibles.");
+            return null;
         }
 
 
@@ -64,19 +75,15 @@ public class Registro
                 listaPreguntasMultiplesFacil.Remove(preguntaSeleccionada as PreguntasMultiples);
                 listaPreguntasMultiplesDificil.Remove(preguntaSeleccionada as PreguntasMultiples);
             }
+            preguntasDisponibles.RemoveAt(i);
             return preguntaSeleccionada;
-        }
-        else
-        {
-            Debug.Log("No hay mas preguntas");
-            return null;
         }
     }
 
 
 
 
-    public void LecturaPreguntasAbiertas()
+    public static void LecturaPreguntasAbiertas()
     {
         try
         {
@@ -113,7 +120,7 @@ public class Registro
         }
     }
 
-    public void LecturaPreguntasFV()
+    public static void LecturaPreguntasFV()
     {
         try
         {
@@ -153,7 +160,7 @@ public class Registro
     }
 
 
-    public void LecturaPreguntasMultiples()
+    public static void LecturaPreguntasMultiples()
     {
         try
         {
