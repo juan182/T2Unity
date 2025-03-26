@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
 
     int perdidas;
     int ganadas;
-
+    int round;
 
     //PreguntasMultiples
     public TextMeshProUGUI textPregunta;
@@ -44,6 +44,9 @@ public class GameController : MonoBehaviour
     //PanelFinal
     public TextMeshProUGUI textGanadas;
     public TextMeshProUGUI textPerdidas;
+
+    //Round
+    public TextMeshProUGUI roundT;
 
 
     //Paneles
@@ -87,6 +90,9 @@ public class GameController : MonoBehaviour
         
         ganadas = 0;
         perdidas = 0;
+        round = 0;
+
+        roundT.gameObject.SetActive(true);
 
         PreguntasAleatorias();
     }
@@ -101,44 +107,53 @@ public class GameController : MonoBehaviour
     {
         preguntaActual = Registro.mostrarOtraPregunta();
 
-        if (preguntaActual == null)
-        {
-            panelPrincipal.SetActive(false);
-            panelPreguntaFV.SetActive(false);
-            panelPreguntaA.SetActive(false);
-            panelFin.SetActive(true);
-
-            mostrarScore();
-        }
-
         panelPrincipal.SetActive(false);
         panelPreguntaFV.SetActive(false);
         panelPreguntaA.SetActive(false);
         panelFin.SetActive(false);
 
+
         if (preguntaActual is PreguntasMultiples)
         {
             mostrarPreguntasMultiples((PreguntasMultiples)preguntaActual);
+
+            var dificultad = (PreguntasMultiples)preguntaActual;
+            if (dificultad.Dificultad == "facil") round = 1;
+            else if (dificultad.Dificultad == "dificil") round = 2;
+
             panelPrincipal.SetActive(true);
             panelPreguntaFV.SetActive(false);
             panelPreguntaA.SetActive(false);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(true);
         }
         else if (preguntaActual is PreguntasFV)
         {
             mostrarPreguntasFV((PreguntasFV)preguntaActual);
+
+            var dificultad = (PreguntasFV)preguntaActual;
+            if (dificultad.Dificultad == "facil") round = 1;
+            else if (dificultad.Dificultad == "dificil") round = 2;
+
             panelPrincipal.SetActive(false);
             panelPreguntaFV.SetActive(true);
             panelPreguntaA.SetActive(false);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(true);
         }
         else if (preguntaActual is PreguntasAbiertas)
         {
             mostrarPreguntasAbiertas((PreguntasAbiertas)preguntaActual);
+
+            var dificultad = (PreguntasAbiertas)preguntaActual;
+            if (dificultad.Dificultad == "facil") round = 1;
+            else if (dificultad.Dificultad == "dificil") round = 2;
+
             panelPrincipal.SetActive(false);
             panelPreguntaFV.SetActive(false);
             panelPreguntaA.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(true);
         }
         else
         {
@@ -146,8 +161,11 @@ public class GameController : MonoBehaviour
             panelPreguntaFV.SetActive(false);
             panelPreguntaA.SetActive(false);
             panelFin.SetActive(true);
+            roundT.gameObject.SetActive(true);
             mostrarScore();
         }
+
+        mostrarRound();
     }
 
     #region mostrar preguntas 
@@ -214,9 +232,16 @@ public class GameController : MonoBehaviour
         panelPreguntaFV.SetActive(false);
         panelPreguntaA.SetActive(false);
         panelFin.SetActive(true);
+        roundT.gameObject.SetActive(false);
 
         textGanadas.SetText("Respuestas Correctas: " + ganadas.ToString());
         textPerdidas.SetText("Respuestas Incorrectas: " + perdidas.ToString());
+    }
+
+    public void mostrarRound()
+    {
+        roundT.text = "Round= "+round.ToString();
+
     }
 
     public void cerrarQuiz()
@@ -240,6 +265,7 @@ public class GameController : MonoBehaviour
         panelPreguntaFV.SetActive(false);
         panelPreguntaA.SetActive(true);
         panelRespuestaA.SetActive(true);
+        roundT.gameObject.SetActive(false);
         inputField.text = "";
     }
 
@@ -253,6 +279,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(false);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             ganadas += 1;
 
@@ -264,6 +291,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(true);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             perdidas += 1;
         }
@@ -278,6 +306,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(false);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             ganadas += 1;
 
@@ -289,6 +318,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(true);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             perdidas += 1;
 
@@ -304,6 +334,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(false);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             ganadas += 1;
 
@@ -315,6 +346,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(true);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             perdidas += 1;
 
@@ -330,6 +362,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(false);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             ganadas += 1;
 
@@ -341,6 +374,7 @@ public class GameController : MonoBehaviour
             panelIncorrecto.SetActive(true);
             panelPrincipal.SetActive(true);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             perdidas += 1;
 
@@ -356,6 +390,7 @@ public class GameController : MonoBehaviour
             panelCorrectoF.SetActive(true);
             panelPrincipal.SetActive(false);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             Debug.Log("Respuesta Correcta es Falso");
 
@@ -369,6 +404,7 @@ public class GameController : MonoBehaviour
             panelCorrectoF.SetActive(false);
             panelPrincipal.SetActive(false);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             Debug.Log("Respuesta incorrecta");
 
@@ -388,6 +424,7 @@ public class GameController : MonoBehaviour
             panelCorrectoF.SetActive(true);
             panelPrincipal.SetActive(false);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             ganadas += 1;
 
@@ -401,6 +438,7 @@ public class GameController : MonoBehaviour
             panelCorrectoF.SetActive(false);
             panelPrincipal.SetActive(false);
             panelFin.SetActive(false);
+            roundT.gameObject.SetActive(false);
 
             perdidas += 1;
 

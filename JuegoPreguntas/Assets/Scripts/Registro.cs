@@ -24,6 +24,7 @@ public static class Registro
 
     static List<System.Object> preguntasDisponibles = new List<System.Object>();
 
+
     public static void Inicializar()
     {
         LecturaPreguntasAbiertas();
@@ -42,8 +43,10 @@ public static class Registro
     public static object mostrarOtraPregunta()
     {
 
+
         if (preguntasDisponibles.Count == 0)
         {
+            
             preguntasDisponibles.AddRange(listaPreguntasAbiertasDificil);
             preguntasDisponibles.AddRange(listaPreguntasMultiplesDificil);
             preguntasDisponibles.AddRange(listaPreguntasFVDificil);
