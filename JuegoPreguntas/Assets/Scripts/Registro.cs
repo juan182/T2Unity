@@ -12,20 +12,24 @@ public static class Registro
 
     //Listas
     static string lineaLeida = "";
-    static List<PreguntasMultiples> listaPreguntasMultiples;
-    static List<PreguntasMultiples> listaPreguntasMultiplesFacil;
-    static List<PreguntasMultiples> listaPreguntasMultiplesDificil;
-    static List<PreguntasFV> listaPreguntasFV;
-    static List<PreguntasFV> listaPreguntasFVFacil;
-    static List<PreguntasFV> listaPreguntasFVDificil;
-    static List<PreguntasAbiertas> listaPreguntasAbierta;
-    static List<PreguntasAbiertas> listaPreguntasAbiertasFacil;
-    static List<PreguntasAbiertas> listaPreguntasAbiertasDificil;
+    static List<PreguntasMultiples> listaPreguntasMultiples = new List<PreguntasMultiples>();
+    static List<PreguntasMultiples> listaPreguntasMultiplesFacil = new List<PreguntasMultiples>();
+    static List<PreguntasMultiples> listaPreguntasMultiplesDificil = new List<PreguntasMultiples>();
+    static List<PreguntasFV> listaPreguntasFV = new List<PreguntasFV>();
+    static List<PreguntasFV> listaPreguntasFVFacil = new List<PreguntasFV>();
+    static List<PreguntasFV> listaPreguntasFVDificil = new List<PreguntasFV>();
+    static List<PreguntasAbiertas> listaPreguntasAbierta = new List<PreguntasAbiertas>();
+    static List<PreguntasAbiertas> listaPreguntasAbiertasFacil = new List<PreguntasAbiertas>();
+    static List<PreguntasAbiertas> listaPreguntasAbiertasDificil = new List<PreguntasAbiertas>();
 
     static List<System.Object> preguntasDisponibles = new List<System.Object>();
 
     public static void Inicializar()
     {
+        LecturaPreguntasAbiertas();
+        LecturaPreguntasFV();
+        LecturaPreguntasMultiples();
+
         preguntasDisponibles.Clear();
         preguntasDisponibles.AddRange(listaPreguntasAbiertasFacil);
         preguntasDisponibles.AddRange(listaPreguntasFVFacil);
@@ -51,33 +55,32 @@ public static class Registro
             return null;
         }
 
-
-        if (preguntasDisponibles.Count > 0)
-        {
             int i = UnityEngine.Random.Range(0, preguntasDisponibles.Count);
-            return preguntasDisponibles[i];
-
+            
             object preguntaSeleccionada = preguntasDisponibles[i];
 
-            // Eliminar la pregunta de la lista original
+
             if (preguntaSeleccionada is PreguntasAbiertas)
             {
                 listaPreguntasAbiertasFacil.Remove(preguntaSeleccionada as PreguntasAbiertas);
                 listaPreguntasAbiertasDificil.Remove(preguntaSeleccionada as PreguntasAbiertas);
+            
             }
             else if (preguntaSeleccionada is PreguntasFV)
             {
                 listaPreguntasFVFacil.Remove(preguntaSeleccionada as PreguntasFV);
                 listaPreguntasFVDificil.Remove(preguntaSeleccionada as PreguntasFV);
-            }
+           
+        }
             else if (preguntaSeleccionada is PreguntasMultiples)
             {
                 listaPreguntasMultiplesFacil.Remove(preguntaSeleccionada as PreguntasMultiples);
                 listaPreguntasMultiplesDificil.Remove(preguntaSeleccionada as PreguntasMultiples);
-            }
+            
+        }
             preguntasDisponibles.RemoveAt(i);
             return preguntaSeleccionada;
-        }
+        
     }
 
 
@@ -88,6 +91,7 @@ public static class Registro
         try
         {
             StreamReader srlpa = new StreamReader("Assets/Files/ArchivoPreguntasAbiertas.txt");
+            
             while ((lineaLeida = srlpa.ReadLine()) != null)
             {
                 string[] lineaPartida = lineaLeida.Split("-");

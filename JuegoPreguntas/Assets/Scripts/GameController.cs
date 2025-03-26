@@ -1,17 +1,18 @@
 using models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameControler : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     string respuestaPM;
     string respuestaFV;
-    
 
     int perdidas;
     int ganadas;
@@ -61,18 +62,33 @@ public class GameControler : MonoBehaviour
 
     public Button continuar;
 
+    public TMP_InputField inputField;
+
     public bool facil;
-    public Registro registro;
 
     public object preguntaActual;
 
+    //Audio
+    public AudioSource audioSource;
+    public AudioClip victoria;
+    public AudioClip derrota;
 
+    
+    
+    
+
+
+    // Start is called before the first frame update
     void Start()
     {
+
+        Registro.Inicializar();
+
+        
+        ganadas = 0;
+        perdidas = 0;
+
         PreguntasAleatorias();
-        registro.LecturaPreguntasAbiertas();
-        registro.LecturaPreguntasFV();
-        registro.LecturaPreguntasMultiples();
     }
 
     // Update is called once per frame
@@ -83,7 +99,7 @@ public class GameControler : MonoBehaviour
 
     public void PreguntasAleatorias()
     {
-        preguntaActual = registro.mostrarOtraPregunta();
+        preguntaActual = Registro.mostrarOtraPregunta();
 
         if (preguntaActual == null)
         {
@@ -100,21 +116,41 @@ public class GameControler : MonoBehaviour
         panelPreguntaA.SetActive(false);
         panelFin.SetActive(false);
 
-        if(preguntaActual is PreguntasMultiples)
+        if (preguntaActual is PreguntasMultiples)
         {
             mostrarPreguntasMultiples((PreguntasMultiples)preguntaActual);
+            panelPrincipal.SetActive(true);
+            panelPreguntaFV.SetActive(false);
+            panelPreguntaA.SetActive(false);
+            panelFin.SetActive(false);
         }
-        else if(preguntaActual is PreguntasFV)
+        else if (preguntaActual is PreguntasFV)
         {
             mostrarPreguntasFV((PreguntasFV)preguntaActual);
+            panelPrincipal.SetActive(false);
+            panelPreguntaFV.SetActive(true);
+            panelPreguntaA.SetActive(false);
+            panelFin.SetActive(false);
         }
-        else if(preguntaActual is PreguntasAbiertas)
+        else if (preguntaActual is PreguntasAbiertas)
         {
             mostrarPreguntasAbiertas((PreguntasAbiertas)preguntaActual);
+            panelPrincipal.SetActive(false);
+            panelPreguntaFV.SetActive(false);
+            panelPreguntaA.SetActive(true);
+            panelFin.SetActive(false);
+        }
+        else
+        {
+            panelPrincipal.SetActive(false);
+            panelPreguntaFV.SetActive(false);
+            panelPreguntaA.SetActive(false);
+            panelFin.SetActive(true);
+            mostrarScore();
         }
     }
 
-    #region Mostrar Pregunta
+    #region mostrar preguntas 
     public void mostrarPreguntasMultiples(PreguntasMultiples pregunta)
     {
         panelCorrecto.SetActive(false);
@@ -133,7 +169,7 @@ public class GameControler : MonoBehaviour
         textVersC.SetText(pregunta.Versiculo);
         textVersI.SetText(pregunta.Versiculo);
         textRespuestaC.SetText("La respuesta correcta es: " + pregunta.RespuestaCorrecta);
-
+        
     }
 
     public void mostrarPreguntasFV(PreguntasFV pregunta)
@@ -167,8 +203,11 @@ public class GameControler : MonoBehaviour
         textRespuestaA.SetText(pregunta.Respuesta);
         textVersiculoA.SetText(pregunta.Versiculo);
     }
-    #endregion
+
+    #endregion 
+
     
+
     public void mostrarScore()
     {
         panelPrincipal.SetActive(false);
@@ -190,17 +229,18 @@ public class GameControler : MonoBehaviour
         {
             Application.Quit();
         }
-
+            
     }
 
     public void botonRespuestaAbierta()
     {
-
+        
         panelFin.SetActive(false);
         panelPrincipal.SetActive(false);
         panelPreguntaFV.SetActive(false);
         panelPreguntaA.SetActive(true);
         panelRespuestaA.SetActive(true);
+        inputField.text = "";
     }
 
     public void comprobarRespuesta1()
@@ -366,4 +406,6 @@ public class GameControler : MonoBehaviour
 
         }
     }
+
+    
 }

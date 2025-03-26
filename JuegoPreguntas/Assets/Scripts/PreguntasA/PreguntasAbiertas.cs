@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PreguntasFV
+public class PreguntasAbiertas 
 {
     private string pregunta;
     private string respuesta;
     private string versiculo;
     private string dificultad;
 
-    public PreguntasFV()
+    public PreguntasAbiertas()
     {
     }
 
-    public PreguntasFV(string pregunta, string respuesta, string versiculo, string dificultad)
+    public PreguntasAbiertas(string pregunta, string respuesta, string versiculo, string dificultad)
     {
         this.pregunta = pregunta;
         this.respuesta = respuesta;
