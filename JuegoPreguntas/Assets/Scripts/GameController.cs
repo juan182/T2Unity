@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI textPreguntaA;
     public TextMeshProUGUI textRespuestaA;
     public TextMeshProUGUI textVersiculoA;
+    public TextMeshProUGUI textValidacion;
 
     //PanelFinal
     public TextMeshProUGUI textGanadas;
@@ -93,6 +94,7 @@ public class GameController : MonoBehaviour
         round = 0;
 
         roundT.gameObject.SetActive(true);
+        textValidacion.gameObject.SetActive(false);
 
         PreguntasAleatorias();
     }
@@ -259,14 +261,24 @@ public class GameController : MonoBehaviour
 
     public void botonRespuestaAbierta()
     {
-        
+
+        if (string.IsNullOrWhiteSpace(inputField.text))
+        {
+            textValidacion.gameObject.SetActive(true);
+            textValidacion.text = "**Debes escribir una respuesta antes de continuar.**";
+            Debug.Log("Debes escribir una respuesta antes de continuar.");
+            return;
+        }
+
         panelFin.SetActive(false);
         panelPrincipal.SetActive(false);
         panelPreguntaFV.SetActive(false);
         panelPreguntaA.SetActive(true);
         panelRespuestaA.SetActive(true);
         roundT.gameObject.SetActive(false);
+
         inputField.text = "";
+        textValidacion.gameObject.SetActive(false);
     }
 
     public void comprobarRespuesta1()
